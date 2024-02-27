@@ -1,9 +1,12 @@
 package com.example.cinema.services;
 
 import com.example.cinema.models.Movie;
+import com.example.cinema.models.MovieDTO;
 import com.example.cinema.models.Reply;
 import com.example.cinema.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +30,16 @@ public class MovieService {
 
     public void deleteMovie(Movie movie){
         movieRepository.delete(movie);
+    }
+
+    public Movie updateMovie(MovieDTO movie, long id){
+        Movie movieToUpdate = movieRepository.findById(id).get();
+        movieToUpdate.setTitle(movie.getTitle());
+        movieToUpdate.setDuration(movie.getDuration());
+        movieToUpdate.setRating(movie.getRating());
+        movieRepository.save(movieToUpdate);
+
+        return movieToUpdate;
     }
 
     public Optional<Movie> getMovieById(long id){

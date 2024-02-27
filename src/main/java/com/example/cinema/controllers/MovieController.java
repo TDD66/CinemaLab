@@ -1,6 +1,7 @@
 package com.example.cinema.controllers;
 
 import com.example.cinema.models.Movie;
+import com.example.cinema.models.MovieDTO;
 import com.example.cinema.models.Reply;
 import com.example.cinema.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,17 @@ public class MovieController {
     public ResponseEntity<Reply> deleteMovie(@RequestBody Movie movie){
         movieService.deleteMovie(movie);
         Reply reply = new Reply("Movie has been deleted!");
+        return new ResponseEntity<>(reply, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Reply> updateMovie(@RequestBody MovieDTO movieDTO, @PathVariable long id){
+        Movie updatedMovie = movieService.updateMovie(movieDTO, id);
+        if(updatedMovie == null){
+            Reply reply = new Reply("Movie not found!");
+            return new ResponseEntity<>(reply, HttpStatus.NOT_FOUND);
+        }
+        Reply reply = new Reply("Movie has been updated!");
         return new ResponseEntity<>(reply, HttpStatus.OK);
     }
 }
