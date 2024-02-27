@@ -41,4 +41,11 @@ public class MovieController {
         List<Movie> movies = movieService.getAllMovies();
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
+
+    @DeleteMapping
+    public ResponseEntity<Reply> deleteMovie(@RequestBody Movie movie){
+        movieService.deleteMovie(movie);
+        Reply reply = new Reply("Movie has been deleted!");
+        return new ResponseEntity<>(reply, HttpStatus.OK);
+    }
 }
