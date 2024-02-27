@@ -49,4 +49,8 @@ public class MovieService {
     public List<Movie> getAllMovies(){
         return movieRepository.findAll();
     }
+
+    public List<Movie> getFilteredByTimeMovies(int maxDuration){
+        return movieRepository.findByDurationLessThanEqual(maxDuration);
+    }
 }

@@ -43,6 +43,12 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/filtered")
+    public ResponseEntity<List<Movie>> getAllFilteredByTimeMovies(@RequestParam int maxDuration){
+        List<Movie> movies = movieService.getFilteredByTimeMovies(maxDuration);
+        return new ResponseEntity<>(movies, HttpStatus.OK);
+    }
+
     @DeleteMapping
     public ResponseEntity<Reply> deleteMovie(@RequestBody Movie movie){
         movieService.deleteMovie(movie);
