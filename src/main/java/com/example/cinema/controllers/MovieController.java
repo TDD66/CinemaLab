@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,5 +34,11 @@ public class MovieController {
         }
 
         return new ResponseEntity<>(movie, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Movie>> getAllMovies(){
+        List<Movie> movies = movieService.getAllMovies();
+        return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 }
